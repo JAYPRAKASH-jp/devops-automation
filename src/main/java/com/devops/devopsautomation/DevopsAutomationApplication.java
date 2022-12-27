@@ -13,7 +13,7 @@ public class DevopsAutomationApplication {
 		SpringApplication.run(DevopsAutomationApplication.class, args);
 	}
 	
-	@GetMapping
+	@GetMapping("/msg")
 	public String msg() {
 		return "Hello Jay";
 	}
