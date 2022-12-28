@@ -17,12 +17,22 @@ pipeline {
                 }
             }
         }
-         stage('Push image to hub'){
+        stage('Push image to hub'){
             steps{
                 script{
-                        bat 'docker login -u jauntyjp -p jauntyjp123'
+                    withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'dockerhubpassword')]) {
+                        // some block
+                        bat "docker login -u jauntyjp -p ${dockerhubpassword}"
+                    }
                         bat 'docker push jauntyjp/devops-automation '
                     
+                }
+            }
+        }
+        stage('Deploy to k8s'){
+            steps{
+                script{
+                    kubernetesDeploy configs: 'deploymentservice.yaml', kubeconfigId: 'k8sconfig'
                 }
             }
         }
