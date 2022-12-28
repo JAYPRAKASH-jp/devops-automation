@@ -15,6 +15,7 @@ spec:
       containers:
         - name: springboot-k8s-mysql
           image: jauntyjp/devops-automation
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8082
           env:   # Setting Enviornmental Variables
